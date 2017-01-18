@@ -18,5 +18,10 @@
   "require": {
     "php": "^7.0",
     "xprt64/lib": "^0.0.1"
+  },
+  "autoload": {
+    "psr-4": {
+      "Gica\\Types\\": "src/Gica/Types/"
+    }
   }
 }
