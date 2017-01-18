@@ -43,7 +43,9 @@ abstract class Set
 
         foreach ($primitiveValues as $primitiveValue) {
             if (!in_array($primitiveValue, $all)) {
-                throw new InvalidValue(sprintf("%s is not a valid value in set %s", $this->escapeString($primitiveValue), get_class($this)));
+                throw new InvalidValue(
+                    sprintf(
+                        "%s is not a valid value in set %s", $this->escapeString($primitiveValue), get_class($this)));
             }
         }
     }
