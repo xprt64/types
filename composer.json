@@ -17,6 +17,6 @@
   ],
   "require": {
     "php": "^7.0",
-    "xprt64/lib": "master"
+    "xprt64/lib": "^0.0.1"
   }
 }
