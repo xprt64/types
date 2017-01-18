@@ -1,7 +1,7 @@
 {
   "name": "xprt64/types",
   "description": "custom types for PHP",
-  "minimum-stability": "dev",
+  "minimum-stability": "stable",
   "license": "MIT",
   "authors": [
     {
