@@ -29,7 +29,7 @@ class DateTimeImmutable extends \DateTimeImmutable
         $date = new self($document['date']);
 
         if (3 == $document['timezone_type']) {
-            $date->setTimezone($document['timezone']);
+            $date->setTimezone(new \DateTimeZone($document['timezone']));
         }
 
         return $date;
