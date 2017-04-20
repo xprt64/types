@@ -113,9 +113,9 @@ abstract class Set
         return count(array_intersect($this->primitiveValues, $other->primitiveValues)) === count($other->primitiveValues);
     }
 
-    public function containsAny(self $other)
+    public function containsAny(?self $other)
     {
-        return count(array_intersect($this->primitiveValues, $other->primitiveValues)) > 0;
+        return null !== $other && count(array_intersect($this->primitiveValues, $other->primitiveValues)) > 0;
     }
 
     public function containsPrimitive($primitiveValue)
@@ -137,15 +137,18 @@ abstract class Set
         return false;
     }
 
-    public function merge(self $other)
+    public function merge(?self $other)
     {
         $primitives = $this->primitiveValues;
 
-        foreach ($other->primitiveValues as $primitiveValue) {
-            if (!in_array($primitiveValue, $primitives)) {
-                $primitives[] = $primitiveValue;
+        if ($other) {
+            foreach ($other->primitiveValues as $primitiveValue) {
+                if (!in_array($primitiveValue, $primitives)) {
+                    $primitives[] = $primitiveValue;
+                }
             }
         }
+
 
         return new static($primitives);
     }

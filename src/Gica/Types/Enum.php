@@ -35,9 +35,9 @@ abstract class Enum
         return $this->convertPrimitiveValue($this->primitiveValue);
     }
 
-    public function equals(self $operand)
+    public function equals(?self $operand)
     {
-        return $this->toPrimitive() === $operand->toPrimitive();
+        return null !== $operand && $this->toPrimitive() === $operand->toPrimitive();
     }
 
     public function equalsPrimitive($operand)
