@@ -105,6 +105,6 @@ abstract class Enum
 
     protected function hasPrimitiveInteger()
     {
-        return false;
+        return is_integer($this->getAll()[0]);
     }
 }
