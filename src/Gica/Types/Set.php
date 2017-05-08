@@ -134,7 +134,7 @@ abstract class Set
 
     protected function hasPrimitiveInteger()
     {
-        return false;
+        return is_integer($this->getAll()[0]);
     }
 
     public function merge(?self $other)
