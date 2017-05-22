@@ -96,11 +96,6 @@ abstract class Set
         return new static($values);
     }
 
-    public static function faraPrivilegii()
-    {
-        return self::fromPrimitive([]);
-    }
-
     public function isNull()
     {
         return null === $this->primitiveValues;
@@ -149,6 +144,20 @@ abstract class Set
             }
         }
 
+        return new static($primitives);
+    }
+
+    public function diff(?self $other)
+    {
+        $primitives = $this->primitiveValues;
+
+        if ($other) {
+            foreach ($this->primitiveValues as $primitiveValue) {
+                if (!in_array($primitiveValue, $other->primitiveValues)) {
+                    $primitives[] = $primitiveValue;
+                }
+            }
+        }
 
         return new static($primitives);
     }
