@@ -149,7 +149,7 @@ abstract class Set
 
     public function diff(?self $other)
     {
-        $primitives = $this->primitiveValues;
+        $primitives = [];
 
         if ($other) {
             foreach ($this->primitiveValues as $primitiveValue) {
