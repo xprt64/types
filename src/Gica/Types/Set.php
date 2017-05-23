@@ -29,7 +29,7 @@ abstract class Set
             $value = $this->convertPrimitiveValue($value);
         }
 
-        $this->primitiveValues = $primitiveValues;
+        $this->primitiveValues = array_unique($primitiveValues, \SORT_REGULAR);
         $this->nullable = $nullable;
     }
 
