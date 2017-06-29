@@ -101,6 +101,11 @@ abstract class Set
         return null === $this->primitiveValues;
     }
 
+    public function isEmpty()
+    {
+        return empty($this->primitiveValues);
+    }
+
     abstract public function getAll();
 
     public function containsAll(self $other)
