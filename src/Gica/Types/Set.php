@@ -166,4 +166,16 @@ abstract class Set
 
         return new static($primitives);
     }
+
+    public function equals(?self $operand):bool
+    {
+        $a = $this->toPrimitive();
+        $b = $operand->toPrimitive();
+
+        sort($a);
+        sort($b);
+
+        return null !== $operand && $a === $b;
+    }
+
 }
