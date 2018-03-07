@@ -115,4 +115,9 @@ abstract class Enum
     {
         return is_integer($this->getAll()[0]);
     }
+
+    public static function null()
+    {
+        return new static(null);
+    }
 }
