@@ -104,7 +104,7 @@ abstract class Enum
 
     private function convertPrimitiveValue($value)
     {
-        if ($this->hasPrimitiveInteger() && null !== $value) {
+        if ($this->hasPrimitiveInteger() && null !== $value && '' !== $value) {
             $value = (int)$value;
         }
 
