@@ -36,6 +36,16 @@ class Guid
         }
     }
 
+    public static function isValidString($string):bool 
+    {
+        try{
+            static::validateString($string);
+            return true;
+        }catch (InvalidGuid $exception){
+            return false;
+        }
+    }
+
     public function __toString()
     {
         return (string)$this->string;
