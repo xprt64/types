@@ -75,7 +75,7 @@ class Guid
 
     private static function newRandomBinaryGuid()
     {
-        return substr(dechex(time()) . random_bytes(self::getByteLength()), 0, self::getByteLength() * 2);
+        return substr(random_bytes(self::getByteLength()) . dechex(time()), -self::getByteLength() * 2);
     }
 
     /**
