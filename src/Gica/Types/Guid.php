@@ -18,7 +18,7 @@ class Guid
         if ($string instanceof self) {
             $this->string = $string->string;
         } else if (func_num_args() === 0) {
-            $this->string = $this->binaryToString(self::newRandomBinaryGuid());
+            $this->string = static::randomString();
         } else {
             self::validateString((string)$string);
             $this->string = (string)$string;
@@ -36,12 +36,12 @@ class Guid
         }
     }
 
-    public static function isValidString($string):bool 
+    public static function isValidString($string): bool
     {
-        try{
+        try {
             static::validateString($string);
             return true;
-        }catch (InvalidGuid $exception){
+        } catch (InvalidGuid $exception) {
             return false;
         }
     }
@@ -58,9 +58,9 @@ class Guid
         return hex2bin($string);
     }
 
-    private static function binaryToString($binary)
+    private static function randomString()
     {
-        return bin2hex($binary);
+        return bin2hex(self::newRandomBinaryGuid());
     }
 
     public function getBinary()
@@ -75,16 +75,7 @@ class Guid
 
     private static function newRandomBinaryGuid()
     {
-        return random_bytes(self::getByteLength());
-    }
-
-    /**
-     * @param $binary
-     * @return static
-     */
-    public static function fromBinary($binary)
-    {
-        return new static(self::binaryToString($binary));
+        return substr(dechex(time()) . random_bytes(self::getByteLength()), 0, self::getByteLength() * 2);
     }
 
     /**
@@ -102,7 +93,6 @@ class Guid
     public static function fromString(string $string)
     {
         self::validateString($string);
-
         return new static($string);
     }
 
@@ -126,7 +116,7 @@ class Guid
      */
     public static function fromFixedString($string)
     {
-        return static::fromString(substr(md5(strtolower($string)), 0, Guid::getByteLength() * 2));
+        return static::fromString(substr(md5(strtolower($string)), 0, self::getByteLength() * 2));
     }
 
 }
