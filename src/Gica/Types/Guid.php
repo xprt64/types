@@ -60,7 +60,7 @@ class Guid
 
     private static function randomString()
     {
-        return bin2hex(self::newRandomBinaryGuid());
+        return substr(bin2hex(self::newRandomBinaryGuid()) . dechex(time()), -self::getByteLength() * 2);
     }
 
     public function getBinary()
@@ -75,7 +75,7 @@ class Guid
 
     private static function newRandomBinaryGuid()
     {
-        return substr(random_bytes(self::getByteLength()) . dechex(time()), -self::getByteLength() * 2);
+        return random_bytes(self::getByteLength());
     }
 
     /**
