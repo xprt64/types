@@ -97,6 +97,15 @@ class Guid
     }
 
     /**
+     * @param $string
+     * @return static
+     */
+    public static function fromHexaString(string $string)
+    {
+        return static::fromString(strtolower(substr($string, 0, self::getByteLength() * 2)));
+    }
+
+    /**
      * @param Guid $src
      * @return static
      */
