@@ -52,7 +52,19 @@ abstract class Set
 
     private function escapeString($s)
     {
-        return htmlentities($s, ENT_QUOTES, 'utf-8');
+        if (null === $s) {
+            return 'null';
+        }
+        if (is_bool($s)) {
+            return $s ? 'true' : 'false';
+        }
+        if (is_int($s) || ctype_digit($s)) {
+            return $s;
+        }
+        if (is_numeric($s)) {
+            return $s;
+        }
+        return is_string($s) ? htmlentities($s, ENT_QUOTES, 'utf-8') : 'unsafe-value';
     }
 
     public function format(callable $formatter, callable $reducer)
