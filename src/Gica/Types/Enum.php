@@ -76,14 +76,27 @@ abstract class Enum
         $all = $this->getAll();
 
         if (!in_array($primitiveValue, $all, false)) {
-            throw new InvalidValue(sprintf("%s (%s) is not a valid value in enum %s (%s)", $this->escapeString($primitiveValue), gettype($primitiveValue), get_class($this), print_r($all, 1)));
+            throw new InvalidValue(sprintf("%s (%s) is not a valid value in enum %s (%s)", $this->escapeString($primitiveValue), gettype($primitiveValue), get_class($this),
+                print_r($all, 1)));
         }
     }
 
 
     private function escapeString($s)
     {
-        return htmlentities($s, ENT_QUOTES, 'utf-8');
+        if (null === $s) {
+            return 'null';
+        }
+        if (is_bool($s)) {
+            return $s ? 'true' : 'false';
+        }
+        if (is_int($s) || ctype_digit($s)) {
+            return $s;
+        }
+        if (is_numeric($s)) {
+            return $s;
+        }
+        return is_string($s) ? htmlentities($s, ENT_QUOTES, 'utf-8') : 'unsafe-value';
     }
 
     public function isNull()
