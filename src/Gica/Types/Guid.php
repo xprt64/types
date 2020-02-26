@@ -30,8 +30,7 @@ class Guid
         if ('' === $string) {
             throw new InvalidGuid("Empty string is not a valid GUID");
         }
-
-        if (!preg_match('#^[0-9a-f]{10,}$#ims', $string)) {
+        if (!preg_match('#^[0-9a-f]{' . (2*self::getByteLength()) . '}$#i', $string)) {
             throw new InvalidGuid(sprintf("%s is not a valid GUID", htmlentities($string, ENT_QUOTES, 'utf-8')));
         }
     }
