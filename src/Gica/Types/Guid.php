@@ -11,17 +11,19 @@ use Gica\Types\Guid\Exception\InvalidGuid;
 class Guid
 {
     /** @var string */
-    private $string = '';
+    private $string = null;
 
     public function __construct($string = null)
     {
         if ($string instanceof self) {
             $this->string = $string->string;
-        } else if (func_num_args() === 0) {
-            $this->string = static::randomString();
         } else {
-            self::validateString((string)$string);
-            $this->string = (string)$string;
+            if (func_num_args() === 0) {
+                $this->string = static::randomString();
+            } else {
+                self::validateString((string)$string);
+                $this->string = (string)$string;
+            }
         }
     }
 
@@ -30,7 +32,7 @@ class Guid
         if ('' === $string) {
             throw new InvalidGuid("Empty string is not a valid GUID");
         }
-        if (!preg_match('#^[0-9a-f]{' . (2*self::getByteLength()) . '}$#i', $string)) {
+        if (!preg_match('#^[0-9a-f]{' . (2 * self::getByteLength()) . '}$#i', $string)) {
             throw new InvalidGuid(sprintf("%s is not a valid GUID", htmlentities($string, ENT_QUOTES, 'utf-8')));
         }
     }
@@ -127,4 +129,13 @@ class Guid
         return static::fromString(substr(md5(strtolower($string)), 0, self::getByteLength() * 2));
     }
 
+    public function isNull(): bool
+    {
+        return $this->string === null;
+    }
+
+    public function validateSelfOrThrow()
+    {
+        self::validateString($this->string);
+    }
 }

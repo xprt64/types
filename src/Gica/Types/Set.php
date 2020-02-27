@@ -190,4 +190,9 @@ abstract class Set
         return null !== $operand && $a === $b;
     }
 
+    public function validateSelfOrThrow()
+    {
+        $this->validateValue($this->primitiveValues, false);
+    }
+
 }

@@ -133,4 +133,9 @@ abstract class Enum
     {
         return new static(null);
     }
+
+    public function validateSelfOrThrow()
+    {
+        $this->validateValue($this->primitiveValue, false);
+    }
 }
