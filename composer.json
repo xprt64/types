@@ -16,7 +16,6 @@
     }
   ],
   "require": {
-    "php": "^7.0",
     "xprt64/lib": "^1.0.1",
     "psr/http-message": "^1.0",
     "ext-ctype": "*"
