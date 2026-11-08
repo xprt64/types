@@ -17,7 +17,7 @@ abstract class Set
      */
     private $nullable;
 
-    protected function __construct(array $primitiveValues = null, $nullable = true)
+    protected function __construct(?array $primitiveValues = null, $nullable = true)
     {
         if (null === $primitiveValues) {
             $primitiveValues = [];
