@@ -15,7 +15,7 @@ class NullDateTimeImmutable extends DateTimeImmutable
     {
     }
 
-    public function format($format)
+    public function format(string $format): string
     {
         return '';
     }

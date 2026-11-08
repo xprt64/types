@@ -10,7 +10,7 @@ use Gica\Types\DateTimeImmutable\NullDateTimeImmutable;
 
 class DateTimeImmutable extends \DateTimeImmutable
 {
-    public static function createFromFormat($format, $time, $timezone = null)
+    public static function createFromFormat(string $format, string $time, ?\DateTimeZone $timezone = null): \DateTimeImmutable|false
     {
         $result = parent::createFromFormat($format, $time, $timezone);
 
