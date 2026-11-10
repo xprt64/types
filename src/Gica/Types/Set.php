@@ -40,14 +40,30 @@ abstract class Set
         }
 
         $all = $this->getAll();
+        $isEnum = $all[0] instanceof \BackedEnum;
 
         foreach ($primitiveValues as $primitiveValue) {
+            $primitiveValue = $isEnum && is_string($primitiveValue)  ? call_user_func([get_class($all[0]), "from"], $primitiveValue) : $primitiveValue;
             if (!in_array($primitiveValue, $all)) {
                 throw new InvalidValue(
                     sprintf(
                         "%s is not a valid value in set %s", $this->escapeString($primitiveValue), get_class($this)));
             }
         }
+    }
+
+    public function isEnum(): bool
+    {
+        $all = $this->getAll();
+        return $all[0] instanceof \BackedEnum;
+    }
+
+    public function convertToEnum($value)
+    {
+        if ($value instanceof \BackedEnum) {
+            return $value;
+        }
+        return call_user_func([get_class($this->getAll()[0]), "from"], $value);
     }
 
     private function escapeString($s)
@@ -70,8 +86,9 @@ abstract class Set
     public function format(callable $formatter, callable $reducer)
     {
         $resultMap = [];
-        foreach ($this->primitiveValues as $primitiveValue)
+        foreach ($this->primitiveValues as $primitiveValue) {
             $resultMap[] = $formatter($primitiveValue);
+        }
 
         return $reducer($resultMap);
     }
@@ -132,6 +149,7 @@ abstract class Set
 
     public function containsPrimitive($primitiveValue)
     {
+        $primitiveValue = $this->convertPrimitiveValue($primitiveValue);
         return in_array($primitiveValue, $this->primitiveValues);
     }
 
@@ -140,7 +158,9 @@ abstract class Set
         if ($this->hasPrimitiveInteger() && null !== $value) {
             $value = (int)$value;
         }
-
+        if ($this->isEnum()) {
+            return $this->convertToEnum($value);
+        }
         return $value;
     }
 
@@ -179,7 +199,7 @@ abstract class Set
         return new static($primitives);
     }
 
-    public function equals(?self $operand):bool
+    public function equals(?self $operand): bool
     {
         $a = $this->toPrimitive();
         $b = $operand->toPrimitive();
