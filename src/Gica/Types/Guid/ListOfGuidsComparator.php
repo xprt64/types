@@ -18,8 +18,6 @@ class ListOfGuidsComparator
      */
     public function equals(array $operand1, array $operand2):bool
     {
-        return (new ArrayComparator())->equals(function (Guid $a, Guid $b) {
-            return $a->equals($b);
-        }, $operand1, $operand2);
+        return new ArrayComparator()->equals(fn(Guid $a, Guid $b) => $a->equals($b), $operand1, $operand2);
     }
 }

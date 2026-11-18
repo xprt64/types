@@ -43,11 +43,11 @@ abstract class Set
         $isEnum = $all[0] instanceof \BackedEnum;
 
         foreach ($primitiveValues as $primitiveValue) {
-            $primitiveValue = $isEnum && is_string($primitiveValue)  ? call_user_func([get_class($all[0]), "from"], $primitiveValue) : $primitiveValue;
+            $primitiveValue = $isEnum && is_string($primitiveValue)  ? call_user_func([$all[0]::class, "from"], $primitiveValue) : $primitiveValue;
             if (!in_array($primitiveValue, $all)) {
                 throw new InvalidValue(
                     sprintf(
-                        "%s is not a valid value in set %s", $this->escapeString($primitiveValue), get_class($this)));
+                        "%s is not a valid value in set %s", $this->escapeString($primitiveValue), $this::class));
             }
         }
     }
@@ -63,7 +63,7 @@ abstract class Set
         if ($value instanceof \BackedEnum) {
             return $value;
         }
-        return call_user_func([get_class($this->getAll()[0]), "from"], $value);
+        return call_user_func([$this->getAll()[0]::class, "from"], $value);
     }
 
     private function escapeString($s)
@@ -95,9 +95,7 @@ abstract class Set
 
     public function implode(callable $formatter, $glue)
     {
-        return $this->format($formatter, function ($formattedItems) use ($glue) {
-            return implode($glue, $formattedItems);
-        });
+        return $this->format($formatter, fn($formattedItems) => implode($glue, $formattedItems));
     }
 
     public function toPrimitive()

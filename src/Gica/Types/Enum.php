@@ -76,7 +76,7 @@ abstract class Enum
         $all = $this->getAll();
 
         if (!in_array($primitiveValue, $all, false)) {
-            throw new InvalidValue(sprintf("%s (%s) is not a valid value in enum %s (%s)", $this->escapeString($primitiveValue), gettype($primitiveValue), get_class($this),
+            throw new InvalidValue(sprintf("%s (%s) is not a valid value in enum %s (%s)", $this->escapeString($primitiveValue), gettype($primitiveValue), $this::class,
                 print_r($all, 1)));
         }
     }
