@@ -15,6 +15,7 @@ class NullDateTimeImmutable extends DateTimeImmutable
     {
     }
 
+    #[\Override]
     public function format(string $format): string
     {
         return '';

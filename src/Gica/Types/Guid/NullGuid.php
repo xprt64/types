@@ -15,11 +15,13 @@ class NullGuid extends Guid
     {
     }
 
+    #[\Override]
     public function __toString()
     {
         return '';
     }
 
+    #[\Override]
     public function getBinary()
     {
         return null;

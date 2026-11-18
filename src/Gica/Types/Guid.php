@@ -47,19 +47,20 @@ class Guid
         }
     }
 
+    #[\Override]
     public function __toString()
     {
         return (string)$this->string;
     }
 
-    private static function stringToBinary($string)
+    private static function stringToBinary($string): string|false
     {
         self::validateString($string);
 
         return hex2bin($string);
     }
 
-    private static function randomString()
+    private static function randomString(): string
     {
         return substr(bin2hex(self::newRandomBinaryGuid()) . dechex(time()), -self::getByteLength() * 2);
     }
@@ -74,7 +75,7 @@ class Guid
         return $other && $this->string == $other->string;
     }
 
-    private static function newRandomBinaryGuid()
+    private static function newRandomBinaryGuid(): string
     {
         return random_bytes(self::getByteLength());
     }

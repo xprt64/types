@@ -27,6 +27,7 @@ abstract class Enum
         $this->nullable = $nullable;
     }
 
+    #[\Override]
     function __toString()
     {
         return (string)$this->primitiveValue;

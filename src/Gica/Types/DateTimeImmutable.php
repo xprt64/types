@@ -10,6 +10,7 @@ use Gica\Types\DateTimeImmutable\NullDateTimeImmutable;
 
 class DateTimeImmutable extends \DateTimeImmutable
 {
+    #[\Override]
     public static function createFromFormat(string $format, string $time, ?\DateTimeZone $timezone = null): \DateTimeImmutable|false
     {
         $result = parent::createFromFormat($format, $time, $timezone);
@@ -35,6 +36,7 @@ class DateTimeImmutable extends \DateTimeImmutable
         return $date;
     }
 
+    #[\Override]
     function __toString()
     {
         return $this->format('Y-m-d H:i:s');

@@ -42,6 +42,7 @@ class Url
         return new self($this->uri->withQuery($newQuery));
     }
 
+    #[\Override]
     function __toString()
     {
         return $this->uri->__toString();
